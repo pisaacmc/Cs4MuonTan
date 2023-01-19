@@ -9,11 +9,18 @@ package q2classmodels;
  *
  * @author MUON
  */
-abstract class Location implements Interactable{
-    protected String name, background;
+abstract class Location{
+    protected String name, background, type;
     
-    public Location(String name, String background){
+    public Location(String name, String background, String type){
         this.name = name;
         this.background = background;
+        this.type = type;
+    }
+    public String getType(){
+        return type;
+    }
+    void interact(Player player) {
+        System.out.println(background);
     }
 }

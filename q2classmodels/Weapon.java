@@ -15,7 +15,7 @@ public class Weapon extends Item implements Upgradable{
     public Weapon(String name, int price, int worth, Player player, int tier){
         super(name, "weapon", price, worth, player);
         this.tier = tier;
-        String[] damageTypes = {"physical", "explosive", "energy"};
+        String[] damageTypes = {"physical", "explosive", "magic"};
         damageType = damageTypes[(int)Math.floor(Math.random()*(3))];
         staminaCost = (int) Math.floor(Math.random()*(3)+1);
         baseDamage = (int)Math.floor(Math.random()*((5+tier-(staminaCost+tier)+1)+staminaCost+tier));
@@ -41,7 +41,7 @@ public class Weapon extends Item implements Upgradable{
     public int getUpgradeCost(){
         return upgradeCost;
     }
-    
+
     /**
      * upgrades weapon
      * @throws BrokeException

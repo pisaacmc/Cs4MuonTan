@@ -9,19 +9,17 @@ import java.util.*;
  *
  * @author MUON
  */
-public class Island extends Location{
+public class Island extends Location implements Interactable{
     private String[] choices = {"Merchant","Hire","Encounter","Leave"};
     private ArrayList<Lieutenant> hiringPool = new ArrayList();
     private Merchant merchant;
+    private Encounter encounter;
     public Island(){
-        super("a","b");
+        super("a","b","island");
     }
-    public Island(String name, String background, Player player){
-        super(name, background);
-        for(int i=0; i<=player.getInfluence();i++){
-            
-            
-        }
+    public Island(String name, String background, Encounter encounter, Player player){
+        super(name, background, "island");
+        
     }
     
     public void interact(Player player){
@@ -46,7 +44,7 @@ public class Island extends Location{
                 continue;
             }
             else if (choice.equalsIgnoreCase("encounter")){
-                
+                encounter.interact(player);
                 continue;
             }
             else if (choice.equalsIgnoreCase("leave")){
