@@ -34,5 +34,8 @@ abstract class Item {
     public int getWorth(){
         return worth;
     }
+    public int getStaminaCost(){
+        return staminaCost;
+    }
     
 }

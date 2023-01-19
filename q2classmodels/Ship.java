@@ -15,7 +15,7 @@ public class Ship {
     private int hp, hull, healing, flatDamage, stamina, maxHp, maxStamina,
                 maxWeapon, strength, poison, weakness;
     private Lieutenant activeLieutenant;
-    private ArrayList<Relic> activeRelics = new ArrayList();
+    private Relic[] activeRelics = {null, null};
     private Player player;
     private ArrayList<Weapon> weaponsList = new ArrayList();
     //getters
@@ -38,6 +38,9 @@ public class Ship {
     }
     public int getmaxStamina(){
         return maxStamina;
+    }
+    public int getStamina(){
+        return stamina;
     }
     public int getMaxWeapon(){
         return maxWeapon;
@@ -71,14 +74,45 @@ public class Ship {
         //parse thru list
     }
     
-    public void fireWeapon(Enemy enemy, Weapon weapon) throws NotEnoughStaminaException{
-        //search weapon list for correct weapon, and fire, deducting ammo and stamina costs
+    public void fireWeapon(Enemy enemy, String weaponName) throws NotEnoughStaminaException, NullPointerException{
+        Weapon weapon = null;
+        for (int i=0; i<maxWeapon;i++){
+            if (weaponsList.get(i).getName().equalsIgnoreCase(weaponName)){
+                weapon = weaponsList.get(i);
+                break;
+            }
+            if(i==3){
+                throw new NullPointerException();
+            }
+       
+        }
+         if(stamina-weapon.getStaminaCost()>0){
+            throw new NotEnoughStaminaException("You dont have enough stamina for that!");
+        }
+        int damage = (int)(weapon.getBaseDamage()*1+(strength/10));
+        if (enemy.getWeakAgainst().equalsIgnoreCase(weapon.getDamageType())){
+            damage*=2;
+        }
+
+        enemy.setHp(enemy.getHp()-damage);
+        //apply relic buffs
+        for(int i=0; i<activeRelics.length;i++){
+            for (int c = 0; c<4;c+=3){
+                if (c==0){
+                    enemy.setPoison(enemy.getPoison() + activeRelics[i].getBuffs()[c]);
+                }
+            }
+        }
+        
     }
     
-    public void addWeapon(){
-        //adds weapon from player inventory to weaponsList, will throw error 
+    public void addWeapon(String weaponName){
+        //adds weapon from player inventory to weaponsList, will offer option to replace if no more slots are available. 
     }
     public void removeWeapon(){
+        //
+    }
+    public void removeWeaponForReplacement(){
         
     }
     public void addRelic(){

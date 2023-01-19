@@ -11,7 +11,8 @@ package q2classmodels;
  */
 public class Enemy extends NPC{
     private int hp, healing, atk;
-    private int[] debuffs = {0,0}; 
+    private int poison, weakness;
+    private int[] debuffs = {0,0}; //poison, weakness
     private String weakAgainst;
     public Enemy(Player player){
         super("Pirate","DIE DIE DIE!",(int)Math.floor((Math.random()*(3+1))+1)*(1+player.getInfluence()/5));
@@ -28,10 +29,25 @@ public class Enemy extends NPC{
     public int getHp(){
         return hp;
     }
-    public void setHP(int newValue){
+    public int getPoison(){
+        return poison;
+    }
+    public int getWeakness(){
+        return weakness;
+    }
+    public void setPoison(int newValue){
+        poison = newValue;
+    }
+    public void setWeakness(int newValue){
+        weakness = newValue;
+    }
+
+    public void setHp(int newValue){
         hp = newValue;
     }
-    
+        public String getWeakAgainst(){
+        return weakAgainst;
+    }
     public void interact(Ship ship){
         System.out.print(name+": "+dialogue);
         int damageDealt = (int)Math.round(atk*(1-(ship.getHull()/10)));

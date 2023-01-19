@@ -14,9 +14,11 @@ import q2classmodels.Exceptions.*;
 public class Relic extends Item implements Upgradable{
     private int[] buffs = {0,0,0,0};//poison, healing, power, weakness
     private boolean activated = false;
+    private int staminaCost;
     public Relic (String name, int price, int worth, Player player){
         super(name, "weapon", price, worth, player);
-        int buffPoints = player.getInfluence()+5;
+        int buffPoints = player.getInfluence()+2;
+        staminaCost = (int)Math.floor(Math.random()*(3)+1);
         System.out.println(buffPoints);
         while (buffPoints>0){
             int buffLevel = (int)Math.floor(Math.random()*(buffPoints+1));
@@ -59,8 +61,15 @@ public class Relic extends Item implements Upgradable{
         
     }
     
-    public void activate(){
-        System.out.println(name+" has been activated!");
-        activated = true;
+    public void activate(Ship ship) throws NotEnoughStaminaException{
+        if(ship.getStamina()-staminaCost>0){
+            throw new NotEnoughStaminaException("You dont have enough stamina for that!");
+        }
+        else {
+            activated = true;
+        }
+    }
+    public void deactivate(){
+        activated = false;
     }
 }

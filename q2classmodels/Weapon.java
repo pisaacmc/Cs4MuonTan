@@ -35,6 +35,9 @@ public class Weapon extends Item implements Upgradable{
     public int getBaseDamage(){
         return baseDamage;
     }
+    public String getDamageType(){
+        return damageType;
+    }
     public int getUpgradeCost(){
         return upgradeCost;
     }
